@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+streamlit
+beautifulsoup4  # replace "4.x.x" with the specific version if necessary
+lxml           # replace "4.x.x" with the specific version if necessary

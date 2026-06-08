@@ -1,105 +1,104 @@
+# 🗣️ Talk-Master: Text-to-Speech Converter
 
-# Welcome to Talk App!
+Talk-Master is a python-based application that extracts text from **Images**, **PDFs**, and **Plain Text** using OCR (Optical Character Recognition) and converts it to speech/audio (.mp3 files) using Google Text-to-Speech (gTTS).
 
-This is a Python Flask based web app which can read text in images, pdfs and text files.
-## Installation
-To Install and run locally, you need to have [Python 3.7](https://www.python.org/downloads/) or above installed. You'll also need to install [Tesseract OCR](https://tesseract-ocr.github.io/tessdoc/Home.html) engine and training data for the languages you want to support. Currently, the app only supports English, Urdu, Hindi and French. So, only install those training data packs.
- ### Steps for Ubuntu
-1. Python3 might already be installed for you, if you are on ubuntu. If not then open up terminal and type
-	``` bash
-     sudo apt install python3
-	```
-2. Install pip3 for python3
-	``` bash
-    sudo apt install python3-pip
-    ```
-3. Install virtual environment for python
-	``` bash
-    sudo apt install python3-venv 
-	```
-4. Install tesseract ocr engine for ubuntu and language training data for english, urdu, hindi and french
+This repository contains two main interfaces:
+1. **FastAPI Backend**: A RESTful API that handles OCR processing and audio generation.
+2. **Streamlit Frontend**: A responsive, web-based UI with light/dark theme support for direct interactive use.
 
-	``` bash
-    sudo apt install tesseract-ocr
-    sudo apt install tesseract-ocr-eng
-    sudo apt install tesseract-ocr-urd
-	sudo apt install tesseract-ocr-hin
-    sudo apt install tesseract-ocr-fra
-	```
-5. Open up a new terminal and get the repo of project from github
-	``` bash
-    git clone https://github.com/yehyaumar/talk.git
-    ```
-    **Note**: Install git if you haven't already
-	``` bash
-	  sudo apt install git
-	```
-6. Activate python virtual environment within it
-	```bash
-	cd talk
-	python3 -m venv venv
-	source venv/bin/activate
-	```
-7. Install dependencies
-	```bash
-	pip install -r requirements.txt
-	```
-8. Now run the server using,
-	```bash
-	flask run
-	```
-9. Open up your browser and visit http://localhost:5000. The app should open up.
+---
 
-**Note**: Above steps are required to be followed to run the app first time.
-After that just open up a terminal in the *talk* folder and run these instructions one by one.
+## 🛠️ Prerequisites
+
+Before running the application, make sure you have the following installed on your system:
+
+### 1. Python
+Install **Python 3.8 or above**. Ensure that Python is added to your system environment variables (`PATH`).
+
+### 2. Tesseract OCR (Required for OCR)
+The application relies on Tesseract OCR to read text from images and PDF files.
+* **Windows**:
+  1. Download and install the Tesseract installer (e.g., from [UB Mannheim](https://github.com/UB-Mannheim/tesseract/wiki)).
+  2. Install it to the default directory: `C:\Program Files\Tesseract-OCR` (the code expects this path).
+  3. Ensure it is added to your system `PATH`.
+* **Ubuntu/Linux**:
+  ```bash
+  sudo apt update
+  sudo apt install tesseract-ocr
+  ```
+* **macOS**:
+  ```bash
+  brew install tesseract
+  ```
+
+### 3. Poppler (Required for PDF processing)
+`pdf2image` requires Poppler to convert PDF pages into images for OCR.
+* **Windows**: 
+  1. Download Poppler for Windows (e.g., from [conda-forge](https://github.com/oschwartz10612/poppler-windows/releases)).
+  2. Extract the folder and add the path to the `bin` directory of Poppler to your system environment variables (`PATH`).
+* **Ubuntu/Linux**:
+  ```bash
+  sudo apt install poppler-utils
+  ```
+* **macOS**:
+  ```bash
+  brew install poppler
+  ```
+
+---
+
+## 🚀 Installation & Setup
+
+Navigate to the project folder (`Project Final/talk-master`) and follow these setup steps:
+
+1. **Create a virtual environment**:
+   ```bash
+   python -m venv venv
+   ```
+
+2. **Activate the virtual environment**:
+   * **Windows (Command Prompt)**:
+     ```cmd
+     .\venv\Scripts\activate
+     ```
+   * **Windows (PowerShell)**:
+     ```powershell
+     .\venv\Scripts\Activate.ps1
+     ```
+   * **macOS / Linux**:
+     ```bash
+     source venv/bin/activate
+     ```
+
+3. **Install the dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## 💻 Running the Applications
+
+You can run either the interactive Streamlit web interface or the FastAPI backend server.
+
+### Option A: Run the Streamlit Frontend Web App
+To launch the interactive user interface:
 ```bash
-source venv/bin/activate
-flask run
-```
-
-### For Windows
-1. Download and Install [python3](https://www.python.org/ftp/python/3.8.3/python-3.8.3-amd64.exe) for windows. Do not forget to select *Add Python to PATH*
-
-2. Download and Install [Tesseract v4](https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v4.1.0.20190314.exe) for windows
-3. Download and Install [Git](https://github.com/git-for-windows/git/releases/download/v2.27.0.windows.1/Git-2.27.0-64-bit.exe) for windows
-4. Download training data for [Urdu](https://github.com/tesseract-ocr/tessdata/raw/4.00/urd.traineddata), [Hindi](https://github.com/tesseract-ocr/tessdata/raw/4.00/hin.traineddata) and [French](https://github.com/tesseract-ocr/tessdata/raw/4.00/fra.traineddata) languages [English is available by default].
-5. Copy the training data files to __*C:\Program Files\Tesseract-OCR\tessdata*__ folder
-6. Make sure path to tesseract binaries are added to your PATH variable. 
-	If not then copy simply copy  __*C:\Program Files\Tesseract-OCR*__ and on your desktop Right-Click *This PC*, go to *Properties > Advanced System Settings > Environment Variables > Path*. Double click on *Path*, Click *New* and paste, then Click *Ok*.
-7. Open *cmd prompt*, and copy these instructions one by one
-```bash
-mkdir python
-cd python
-git clone https://github.com/yehyaumar/talk.git
-cd talk
-py -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
-flask run
-```
-8. Open up your browser and visit [http://localhost:5000](http://localhost:5000/). The app should open up.
-
-**Note**: Above steps are required to be followed to run the app first time.
-After that just open up a *cmd promtp* in the *talk* folder and run these instructions one by one.
-```bash
-.\venv\Scripts\activate
-flask run
-```
-
-
-```
-Create enviornment 
-Activate the enviornment 
-Now run the command pip install -r requirements.txt
-To run this backend, run this command 
-
-uvicorn backend.main:app --reload
-
-For frontend, open new terminal, run this command 
 streamlit run frontend/app.py
-
-
-
-
-
 ```
+* Once started, the app will open automatically in your default browser at `http://localhost:8501`.
+* It provides a simple file-uploader for PDFs/Images and a text input field, along with a theme toggle in the sidebar.
+
+### Option B: Run the FastAPI Backend Server
+To launch the REST API server:
+```bash
+uvicorn backend.main:app --reload
+```
+* The backend server will run at `http://127.0.0.1:8000`.
+* You can access the auto-generated Swagger API documentation to test the endpoints directly by visiting: **`http://127.0.0.1:8000/docs`**
+
+#### Available API Endpoints:
+* `GET /` - Root status message.
+* `POST /process-image/` - Upload an image file to get the generated MP3 speech file back.
+* `POST /process-pdf/` - Upload a PDF file to get the generated MP3 speech file back.
+* `POST /process-text/` - Send a text query parameter to get the generated MP3 speech file back.
